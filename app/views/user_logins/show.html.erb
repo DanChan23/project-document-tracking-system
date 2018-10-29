@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Timestamp:</strong>
+  <%= @user_login.timestamp %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_login.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_user_login_path(@user_login) %> |
+<%= link_to 'Back', user_logins_path %>

@@ -1,0 +1,2 @@
+class DocumentHistory < ApplicationRecord
+end

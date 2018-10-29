@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Document:</strong>
+  <%= @document_history.document_id %>
+</p>
+
+<p>
+  <strong>Received by name:</strong>
+  <%= @document_history.received_by_name %>
+</p>
+
+<p>
+  <strong>Received by office:</strong>
+  <%= @document_history.received_by_office %>
+</p>
+
+<p>
+  <strong>Received from name:</strong>
+  <%= @document_history.received_from_name %>
+</p>
+
+<p>
+  <strong>Received from office:</strong>
+  <%= @document_history.received_from_office %>
+</p>
+
+<p>
+  <strong>Length of stay:</strong>
+  <%= @document_history.length_of_stay %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @document_history.remarks %>
+</p>
+
+<p>
+  <strong>Max stay:</strong>
+  <%= @document_history.max_stay %>
+</p>
+
+<%= link_to 'Edit', edit_document_history_path(@document_history) %> |
+<%= link_to 'Back', document_histories_path %>

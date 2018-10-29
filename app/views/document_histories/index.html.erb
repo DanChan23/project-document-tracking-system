@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Document Histories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Document</th>
+      <th>Received by name</th>
+      <th>Received by office</th>
+      <th>Received from name</th>
+      <th>Received from office</th>
+      <th>Length of stay</th>
+      <th>Remarks</th>
+      <th>Max stay</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @document_histories.each do |document_history| %>
+      <tr>
+        <td><%= document_history.document_id %></td>
+        <td><%= document_history.received_by_name %></td>
+        <td><%= document_history.received_by_office %></td>
+        <td><%= document_history.received_from_name %></td>
+        <td><%= document_history.received_from_office %></td>
+        <td><%= document_history.length_of_stay %></td>
+        <td><%= document_history.remarks %></td>
+        <td><%= document_history.max_stay %></td>
+        <td><%= link_to 'Show', document_history %></td>
+        <td><%= link_to 'Edit', edit_document_history_path(document_history) %></td>
+        <td><%= link_to 'Destroy', document_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Document History', new_document_history_path %>

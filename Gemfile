@@ -7,6 +7,15 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+# gem bootstrap and popperjs required for bootstrap
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
+gem 'bootstrap'
+gem 'popper_js', '~> 1.14.5'
+
+#for popup in rails
+gem 'bootstrap-sass', '~> 3.3.7'
+#gem 'sass-rails', '>= 3.2'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

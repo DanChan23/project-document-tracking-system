@@ -42,7 +42,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :role_id %>
+    <%= form.label "designation" %>
     <%= form.collection_select(:role_id, Role.all, :id, :name, :prompt => 'Select Role') %>
   </div>
 
@@ -57,6 +57,7 @@
   </div>
 
   <div class="actions">
-    <%= form.submit "Sign Up" %>
+    <%= form.submit :submit %>
   </div>
+
 <% end %>

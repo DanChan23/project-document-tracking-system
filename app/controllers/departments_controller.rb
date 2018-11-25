@@ -2,6 +2,18 @@ class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
   before_action :authorize
 
+
+  def retriever
+    department_id = params[:department_id]
+    # do something with some_parameter and return the results
+
+    @dept_head=Department.where("id = ?", department_id).pluck(:name).first
+    puts "department head is: " + @dept_head
+    respond_to do |format|
+      format.json { render :json => @dept_head.to_json, :include => :status }
+    end
+  end
+
   # GET /departments
   # GET /departments.json
   def index

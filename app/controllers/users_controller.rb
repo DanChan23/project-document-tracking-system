@@ -30,7 +30,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        format.html { redirect_to @user, notice: 'Thank you for signing up!' }
+        #format.html { redirect_back(fallback_location: root_path), notice: 'Thank you for signing up!' }
+        format.html { redirect_to "http://localhost:3000/documents", notice: 'successfully registered!' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -58,7 +59,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: 'User was successfully deleted' }
       format.json { head :no_content }
     end
   end

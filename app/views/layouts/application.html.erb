@@ -10,11 +10,19 @@
   </head>
 
   <body>
+
+    <%= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'}  %>
+    <div id="modal-window" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:600px;" ></div>
+      </div>
+    </div>
+
     <% if current_user %>
-      Logged in as <%= current_user.email %>.
+      Logged in as <%= current_user.username %>.
       <%= link_to "Log Out", logout_path %>
     <% else %>
-      <%= link_to "Sign Up", signup_path %> or
+      <% link_to "Sign Up", signup_path %> or
       <%= link_to "Log In", login_path %>
     <% end %>
     <%= yield %>

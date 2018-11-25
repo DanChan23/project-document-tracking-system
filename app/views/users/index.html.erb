@@ -26,7 +26,7 @@
         <td><%= user.email %></td>
         <td><%= user.password_digest %></td>
         <td><%= Role.where("id = ?", user.role_id).pluck(:name).first %></td>
-        <td><%= User.where("id = ?", user.user_id).pluck(:fname).first + " " + User.where("id = ?", user.user_id).pluck(:lname).first%></td>
+        <td><%= User.where("id = ?", user.user_id).pluck(:fname).first.to_s + " " + User.where("id = ?", user.user_id).pluck(:lname).first.to_s %></td>
         <td><%= Department.where("id = ?", user.department_id).pluck(:name).first %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>

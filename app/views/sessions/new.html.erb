@@ -1,4 +1,12 @@
+  <% registered = UserLogin.count %>
+  <% role_count = Role.count %>
+  <% if registered == 0 && role_count == 0 %>
+    <p>registered = <%= registered %></p>
+    <% Role.create(:name => "Administrator", :description => "Person who administers the entire System") %>
+    <% Role.create(:name => "Supervisor", :description => "Person who oversees the department assigned") %>
 
+    <% controller.redirect_to "http://localhost:3000/signup" %>
+  <% end %>
 
 <%= form_tag sessions_path do %>
   <center>

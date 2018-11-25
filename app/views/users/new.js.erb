@@ -1,0 +1,41 @@
+$("#modal-window").find(".modal-content").html("<%= j (render 'new') %>");
+$("#modal-window").modal();
+
+$(function(){
+  $('#signup_submit').attr('disabled', 'disabled');
+  $("#conf_pass_id").keyup(function() {
+		console.log("conf_pass_id is changed!");
+		
+		if ($('#conf_pass_id').val() != $('#pass_id').val()) {
+			console.log("Not Match!");
+			$('#prompter').html("Password should match!");
+			$('#signup_submit').attr('disabled', 'disabled');
+		}
+		else {
+			$('#prompter').html("");
+			$('#signup_submit').removeAttr('disabled');	
+		}
+	});
+});
+
+$(function() {
+	$('#user_department_id').change(function() {
+		console.log("user_department_id has changed! Id is: " + $(this).val());
+		//$('#user_user_id').replaceWith('<input id="user_user_id" name="#user_user_id" readonly="readonly" value="'+ $(this).val()+ '">');
+		//$('#user_user_id').val($(this).val());
+		$.ajax({
+		  type:"GET",
+		  contentType: "application/json; charset=utf-8",
+		  url:"/departments/retriever",
+		  data: {department_id: $(this).val()},
+		  dataType:"json",
+		  success: function(result){
+		    console.log("Server responded with " +result);
+		    $('#user_user_id').replaceWith('<input id="user_user_id" name="#user_user_id" readonly="readonly" value="'+ result+ '">');
+		  },
+		  error: function() {
+		  	console.log("There's something wrong!");	
+		  } 
+		});
+	});
+});

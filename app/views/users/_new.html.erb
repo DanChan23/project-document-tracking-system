@@ -1,0 +1,94 @@
+
+	<div class="modal-header">
+	  
+	  <h4 class="modal-title" id="myModalLabel">ADD USER ACCOUNT</h4>
+	  <button type="button" class="close" data-dismiss="modal">x</button>
+	</div>
+	<div class="modal-body">
+		<%= form_with(model: @user, local: true) do |form| %>
+		  <% if @user.errors.any? %>
+		  	<div id="error_explanation">
+		      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+		      <ul>
+		      <% user.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+		  
+
+		  <% registered = UserLogin.count %>
+		  <% role_count = Role.count %>
+		  <% if registered == 0 && role_count == 0 %>
+		    <p>registered = <%= registered %></p>
+		    <% Role.create(:name => "Administrator", :description => "Person who administers the entire System") %>
+		    <% Role.create(:name => "Supervisor", :description => "Person who oversees the department assigned") %>
+		    <% Department.create(:name => "Human Resource Unit") %>
+		    <% Department.create(:name => "Administrative Unit") %>
+		    <% Department.create(:name => "Finance Unit") %>
+		    <% Department.create(:name => "Technical Unit") %>
+
+
+		    <% controller.redirect_to "http://localhost:3000/login" %>
+		  <% end %>
+
+		<div class="row">
+		<div class="col-sm-6">
+		  <div class="field form-group">
+		    <%= form.label :username, :class => "control-label" %>
+		    <%= form.text_field :username %>
+		  </div>
+
+		  <div class="field form-group">
+		    <%= form.label "First_Name" %>
+		    <%= form.text_field :fname %>
+		  </div>
+
+		  <div class="field form-group">
+		    <%= form.label "Last_Name" %>
+		    <%= form.text_field :lname %>
+		  </div>
+
+		  <div class="field form-group">
+		    <%= form.label :email %>
+		    <%= form.text_field :email %>
+		  </div>
+		</div>
+		<div class="col-sm-6">
+		  <div class="field form-group">
+		    <%= form.label :password %>
+		    <%= form.password_field :password, :id => "pass_id" %>
+		    <p id="prompter"></p>
+		  
+		    <%= form.label "Re-enter" %>
+		    <%= form.password_field :password_confirmation, :placeholder => "Confirm Password", :id => "conf_pass_id" %>
+		  </div>
+
+		  <div class="field form-group">
+		    <%= form.label "designation" %>
+		    <%= form.collection_select(:role_id, Role.all, :id, :name, :prompt => 'Select Role') %>
+		  </div>
+
+		  <div class="field form-group">
+		    <%= form.label :user_id %>
+		    <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Supervisor') %>
+		  </div>
+
+		  <div class="field form-group">
+		    <%= form.label :department_id %>
+		    <%= form.collection_select(:department_id, Department.all, :id, :name, :prompt => 'Specify Department') %>
+		  </div>
+		</div>
+		</div>
+
+		  <div class="modal-footer">
+		    <%= form.submit "Add", :class => "btn btn-primary", :id => "signup_submit" %>
+		  </div>
+
+		<% end %>
+
+
+	</div>
+

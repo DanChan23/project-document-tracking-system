@@ -2,11 +2,12 @@
 
 <h1>Departments</h1>
 
-<table>
+<center><table class = "table-hover table-bordered table-condensed table table-striped" style="width:90%">
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th>Head of Department</th>
+      <th colspan="2">Action</th>
     </tr>
   </thead>
 
@@ -14,14 +15,18 @@
     <% @departments.each do |department| %>
       <tr>
         <td><%= department.name %></td>
-        <td><%= link_to 'Show', department %></td>
-        <td><%= link_to 'Edit', edit_department_path(department) %></td>
-        <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= User.where("id = ?", department.user_id).pluck(:fname).first.to_s + " " + User.where("id = ?", department.user_id).pluck(:lname).first.to_s %></td>
+        <td><% link_to 'Show', department %>
+          <%= link_to 'Edit', department,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-dept', class: 'btn btn-primary'}  %>
+        </td>
+
+        <% link_to 'Edit', edit_department_path(department) %>
+        <td><%= link_to 'Remove', department, :class => 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</center>
 <br>
 
 <%= link_to 'New Department', new_department_path %>

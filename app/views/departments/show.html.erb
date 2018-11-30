@@ -5,5 +5,10 @@
   <%= @department.name %>
 </p>
 
+<p>
+  <strong>Head of Department:</strong>
+  <td><%= User.where("id = ?", @department.user_id).pluck(:fname).first.to_s + " " + User.where("id = ?", @department.user_id).pluck(:lname).first.to_s %></td>
+</p>
+
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', departments_path %>

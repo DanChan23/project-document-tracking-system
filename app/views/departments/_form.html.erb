@@ -16,6 +16,11 @@
     <%= form.text_field :name %>
   </div>
 
+  <div class="field form-group">
+    <%= form.label :user_id %>
+    <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Head of Department') %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -7,12 +7,31 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "pagination" %>
   </head>
 
   <body>
 
     <%= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'}  %>
     <div id="modal-window" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:600px;" ></div>
+      </div>
+    </div>
+
+    <div id="modal-window-show-dept" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:500px;" ></div>
+      </div>
+    </div>
+
+    <div id="modal-window-show-docs" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:600px;" ></div>
+      </div>
+    </div>
+
+    <div id="modal-window-new-docs" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content" style="width:600px;" ></div>
       </div>

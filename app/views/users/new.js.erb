@@ -1,20 +1,24 @@
 $("#modal-window").find(".modal-content").html("<%= j (render 'new') %>");
 $("#modal-window").modal();
 
+function checker() {
+	console.log("This is being called");
+	if ($('#conf_pass_id').val() != $('#pass_id').val()) {
+			console.log("Not Match!");
+			$('#prompter').html("Password should match!");
+			$('#signup_submit').attr('disabled', 'disabled');
+	}
+	else {
+		$('#prompter').html("");
+		$('#signup_submit').removeAttr('disabled');	
+	}
+}
+
 $(function(){
   $('#signup_submit').attr('disabled', 'disabled');
   $("#conf_pass_id").keyup(function() {
 		console.log("conf_pass_id is changed!");
-		
-		if ($('#conf_pass_id').val() != $('#pass_id').val()) {
-			console.log("Not Match!");
-			$('#prompter').html("Password should match!");
-			$('#signup_submit').attr('disabled', 'disabled');
-		}
-		else {
-			$('#prompter').html("");
-			$('#signup_submit').removeAttr('disabled');	
-		}
+		checker();
 	});
 });
 

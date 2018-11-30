@@ -4,7 +4,12 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    #@documents = Document.all.paginate(:page => params[:page], :per_page => 5)
+    @documents = if params[:subject]
+      Document.where('subject LIKE ?', "%#{params[:subject]}%").order('id DESC').paginate(:page => params[:page], :per_page => 5)
+    else
+      Document.all.order('id DESC').paginate(:page => params[:page], :per_page => 5)
+    end
   end
 
   # GET /documents/1
@@ -28,7 +33,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
-        format.html { redirect_to @document, notice: 'Document was successfully created.' }
+        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
         format.html { render :new }
@@ -42,7 +47,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to @document, notice: 'Document was successfully updated.' }
+        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document was successfully updated.' }
         format.json { render :show, status: :ok, location: @document }
       else
         format.html { render :edit }

@@ -1,0 +1,35 @@
+<div class="modal-header">
+    
+    <h4 class="modal-title" id="myModalLabel">Edit Info</h4>
+    <button type="button" class="close" data-dismiss="modal">x</button>
+  </div>
+  <div class="modal-body">
+
+  <%= form_with(model: @department, local: true) do |form| %>
+    <% if @department.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
+
+        <ul>
+        <% department.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :user_id %>
+      <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Head of Department') %>
+    </div>
+
+    <div class="modal-footer">
+      <%= form.submit :class => 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

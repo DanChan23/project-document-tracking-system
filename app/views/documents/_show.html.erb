@@ -1,0 +1,45 @@
+<div class="modal-header">
+    
+    <h4 class="modal-title" id="myModalLabel">Edit Info</h4>
+    <button type="button" class="close" data-dismiss="modal">x</button>
+  </div>
+  <div class="modal-body">
+
+  <%= form_with(model: @document, local: true) do |form| %>
+    <% if @document.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(document.errors.count, "error") %> prohibited this document from being saved:</h2>
+
+        <ul>
+        <% document.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :subject %>
+      <%= form.text_field :subject %>
+    </div>
+
+    <div class="field">
+      <%= form.label :status %>
+      <%= form.text_field :status %>
+    </div>
+
+    <div class="field">
+      <%= form.label :date_created %>
+      <%= form.date_select :date_created %>
+    </div>
+
+    <div class="field">
+      <%= form.label :time_created %>
+      <%= form.time_select :time_created %>
+    </div>
+
+      <div class="modal-footer">
+        <%= form.submit :class => 'btn btn-primary' %>
+      </div>
+  <% end %>
+</div>

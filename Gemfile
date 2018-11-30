@@ -16,6 +16,9 @@ gem 'popper_js', '~> 1.14.5'
 gem 'bootstrap-sass', '~> 3.3.7'
 #gem 'sass-rails', '>= 3.2'
 
+#gem for pagination 11-28-18
+gem 'will_paginate'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

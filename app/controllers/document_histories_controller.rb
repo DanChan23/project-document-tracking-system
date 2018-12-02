@@ -29,7 +29,9 @@ class DocumentHistoriesController < ApplicationController
 
     respond_to do |format|
       if @document_history.save
-        format.html { redirect_to @document_history, notice: 'Document history was successfully created.' }
+        docs = Document.find(@document_history.document_id)
+        docs.update_column(:status, @document_history.remarks)
+        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document history was successfully created.' }
         format.json { render :show, status: :created, location: @document_history }
       else
         format.html { render :new }
@@ -43,7 +45,7 @@ class DocumentHistoriesController < ApplicationController
   def update
     respond_to do |format|
       if @document_history.update(document_history_params)
-        format.html { redirect_to @document_history, notice: 'Document history was successfully updated.' }
+        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document history was successfully updated.' }
         format.json { render :show, status: :ok, location: @document_history }
       else
         format.html { render :edit }
@@ -70,6 +72,6 @@ class DocumentHistoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_history_params
-      params.require(:document_history).permit(:document_id, :received_by_name, :received_by_office, :received_from_name, :received_from_office, :length_of_stay, :remarks, :max_stay)
+      params.require(:document_history).permit(:document_id, :received_by_name, :received_by_office, :received_from_name, :received_from_office, :length_of_stay, :remarks, :max_stay, :subject)
     end
 end

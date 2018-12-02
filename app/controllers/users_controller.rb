@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        session[:user_id] = @user.id
+        #session[:user_id] = @user.id
         #format.html { redirect_back(fallback_location: root_path), notice: 'Thank you for signing up!' }
         format.html { redirect_to "http://localhost:3000/documents", notice: 'successfully registered!' }
         format.json { render :show, status: :created, location: @user }

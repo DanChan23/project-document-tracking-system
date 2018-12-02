@@ -1,0 +1,12 @@
+$("#modal-window-new-history").find(".modal-content").html("<%= j (render 'new') %>");
+$("#modal-window-new-history").modal();
+
+
+$(function(){
+  $("#document_history_document_id").change(function() {
+		console.log("document_history_document_id is changed!");
+		console.log("The value is: " + $("#document_history_document_id :selected").text());
+		aw = $("#document_history_document_id :selected").text();
+		$("#document_history_subject").val(aw)
+	});
+});

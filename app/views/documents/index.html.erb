@@ -1,10 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Documents</h1>
-<%= form_tag(documents_path, method: :get) do %>
-  <%= text_field_tag :subject, params[:subject] %>
-  <%= submit_tag 'Search', name: nil %>
-<% end %>
+<h3>Documents</h3>
+  <div style="float: right; padding-right: 40px">
+  <%= form_tag(documents_path, method: :get) do %>
+    <%= text_field_tag :subject, params[:subject] %>
+    <%= submit_tag 'Search', name: nil %>
+  <% end %>
+  </div>
 <center>
 <table class = "table-hover table-bordered table-condensed table" style="width: 95%">
   <thead>
@@ -13,12 +15,14 @@
       <th>Status</th>
       <th>Date created</th>
       <th>Time created</th>
+      <th>Requested by</th>
       <th>Current Location</th>
 
       <th colspan="2"></th>
     </tr>
   </thead>
 
+  <% department_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first %>
   <tbody>
     <% @documents.each do |document| %>
       <tr>
@@ -26,7 +30,10 @@
         <td><%= document.status %></td>
         <td><%= document.date_created %></td>
         <td><%= document.time_created.strftime("%I:%M %p") %></td>
-        <td></td>
+        <td><%= User.where("id = ?", document.user_id).pluck(:fname).first.to_s + " " + User.where("id = ?", document.user_id).pluck(:lname).first.to_s %></td>
+        <td><% dh = DocumentHistory.where("document_id = ?", document.id).order('id DESC').pluck(:received_by_office).first %>
+          <%= Department.where("id = ?", dh).pluck(:name).first %>
+        </td>
         <td><% link_to 'Show', document %>
           <%= link_to 'Edit', document,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-docs', class: 'btn btn-primary'}  %>
         </td>
@@ -48,6 +55,5 @@
   </div>
 </table>
 </center>
-<br>
-
 <%= link_to 'New Document', new_document_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-docs', class: 'btn btn-primary'} %>
+<%= link_to 'Forward Document', new_document_history_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-history', class: 'btn btn-primary'} %>

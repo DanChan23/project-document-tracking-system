@@ -1,0 +1,77 @@
+  <div class="modal-header">
+    
+    <h4 class="modal-title" id="myModalLabel">Forward document</h4>
+    <button type="button" class="close" data-dismiss="modal">x</button>
+  </div>
+<div class="modal-body">
+
+  <%= form_with(model: @document_history, local: true) do |form| %>
+    <% if @document_history.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(document_history.errors.count, "error") %> prohibited this document_history from being saved:</h2>
+
+        <ul>
+        <% document_history.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% dept_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first %>
+    <div class="field">
+      <%= form.label :document_id %>
+      <% tmp = DocumentHistory.group("document_id").order('id DESC') %>
+      <% @dh = DocumentHistory.from("(#{tmp.to_sql}) as doc_his").select("doc_his.*").where("doc_his.received_by_office = ? AND doc_his.remarks = ?", dept_id, "Pending") %>
+
+      <% form.number_field :document_id %>
+      <%= form.collection_select(:document_id, @dh, :document_id, :subject, :prompt => 'Select document') %>
+    </div>
+
+    <div class="field">
+      <%= form.label "received_by:" %>
+      <%= form.collection_select(:received_by_name, User.all, :id, :fname_with_lname, :prompt => 'Specify Receiver') %>
+    </div>
+
+    <div class="field">
+      <%= form.label "received_by_office:" %>
+      <%= form.collection_select(:received_by_office, Department.all, :id, :name, :prompt => 'Specify Receiving Department') %>
+    </div>
+
+    <div class="field">
+      <%= form.label "forwarded_by:" %>
+      <%= form.hidden_field :received_from_name, :value => session[:user_id] %>
+      <%= User.where("id = ?", session[:user_id]).pluck(:fname).first.to_s + " " + User.where("id = ?", session[:user_id]).pluck(:lname).first.to_s %>
+    </div>
+
+    <div class="field">
+      <%= form.label "received_from_office:" %>
+      <% dept_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first %>
+      <%= form.hidden_field :received_from_office, :value => dept_id %>
+      <%= Department.where("id = ?", dept_id).pluck(:name).first %>
+    </div>
+
+    <div class="field">
+      <% form.label :length_of_stay %>
+      <% form.number_field :length_of_stay %>
+    </div>
+
+    <div class="field">
+      <%= form.label :remarks %>
+      <%= form.select :remarks, options_for_select(["Pending","Completed", "Cancelled"],"Pending") %>
+    </div>
+
+    <div class="field">
+      <% form.label :subject %>
+      <%= form.hidden_field :subject, :id => "document_history_subject", :readonly => "readonly" %>
+    </div>
+
+    <div class="field">
+      <% form.label :max_stay %>
+      <% form.number_field :max_stay %>
+    </div>
+
+    <div class="modal-footer">
+      <%= form.submit "Forward Document", :class => 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

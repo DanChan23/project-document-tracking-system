@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Document</th>
+      <th>Subject</th>
       <th>Received by name</th>
       <th>Received by office</th>
       <th>Received from name</th>
@@ -21,6 +22,7 @@
     <% @document_histories.each do |document_history| %>
       <tr>
         <td><%= document_history.document_id %></td>
+        <td><%= document_history.subject %></td>
         <td><%= document_history.received_by_name %></td>
         <td><%= document_history.received_by_office %></td>
         <td><%= document_history.received_from_name %></td>

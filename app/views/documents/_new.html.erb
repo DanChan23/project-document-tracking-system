@@ -25,7 +25,7 @@
 
     <div class="field">
       <%= form.label :status %>
-      <%= form.text_field :status %>
+      <%= form.select :status, options_for_select(["Pending","Completed", "Cancelled"],"Pending") %>
     </div>
 
     <div class="field">
@@ -37,6 +37,17 @@
       <%= form.label :time_created %>
       <%= form.time_select :time_created %>
     </div>
+
+    <div class="field">
+      <% form.label "Creator" %>
+      <%= form.hidden_field :user_id, :value => session[:user_id] %>
+    </div>
+
+    <div class="field">
+      <% form.label "Department" %>
+      <% department_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first %>
+      <%= form.hidden_field :department_id, :value => department_id %>
+    </div>   
 
     <div class="modal-footer">
       <%= form.submit :class => 'btn btn-primary' %>

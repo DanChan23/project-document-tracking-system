@@ -1,8 +1,13 @@
+<% if session[:user_id] == nil %>
+  <% controller.flash.now.alert = "Please log in first!" %>
+  <% controller.redirect_to "http://localhost:3000/login", alert: "Please log in first!" %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Users</h1>
 
-<table>
+<table class = "table-hover table-bordered table-condensed table" style="width: 95%">
   <thead>
     <tr>
       <th>Username</th>

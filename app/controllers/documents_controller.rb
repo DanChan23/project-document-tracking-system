@@ -5,11 +5,21 @@ class DocumentsController < ApplicationController
   # GET /documents.json
   def index
     #@documents = Document.all.paginate(:page => params[:page], :per_page => 5)
+    dept_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first
     @documents = if params[:subject]
-      Document.where('subject LIKE ?', "%#{params[:subject]}%").order('id DESC').paginate(:page => params[:page], :per_page => 5)
+      Document.where('subject LIKE ? AND user_id = ?', "%#{params[:subject]}%", session[:user_id]).or(Document.where('subject LIKE ? AND department_id = ?',"%#{params[:subject]}%", dept_id)).order('id DESC').paginate(:page => params[:page], :per_page => 5)
     else
-      Document.all.order('id DESC').paginate(:page => params[:page], :per_page => 5)
+      Document.where('user_id = ?', session[:user_id]).or(Document.where('department_id = ?', dept_id)).order('id DESC').paginate(:page => params[:page], :per_page => 5)
     end
+
+    if User.where("id = ?", session[:user_id]).pluck(:role_id).first == 1
+      @documents = if params[:subject]
+        Document.where('subject LIKE ?', "%#{params[:subject]}%").order('id DESC').paginate(:page => params[:page], :per_page => 5)
+      else
+        Document.all.order('id DESC').paginate(:page => params[:page], :per_page => 5)
+      end
+    end
+
   end
 
   # GET /documents/1
@@ -33,6 +43,10 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
+        puts "id is: " + @document.id.to_s
+        puts "received_from_name is: " + @document.user_id.to_s
+        puts "received_from_office is: " + @document.department_id.to_s
+        DocumentHistory.create(:document_id => @document.id, :received_by_name => @document.user_id, :received_by_office => @document.department_id, :subject => @document.subject, :remarks => @document.status)
         format.html { redirect_to "http://localhost:3000/documents", notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
@@ -74,6 +88,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:subject, :status, :date_created, :time_created)
+      params.require(:document).permit(:subject, :status, :date_created, :time_created, :user_id, :department_id)
     end
 end

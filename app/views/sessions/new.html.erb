@@ -1,18 +1,22 @@
-  <% registered = UserLogin.count %>
-  <% role_count = Role.count %>
-  <% if registered == 0 && role_count == 0 %>
-    <p>registered = <%= registered %></p>
-    <% Role.create(:name => "Administrator", :description => "Person who administers the entire System") %>
-    <% Role.create(:name => "Supervisor", :description => "Person who oversees the department assigned") %>
-
-    <% controller.redirect_to "http://localhost:3000/signup" %>
-  <% end %>
+      <% registered = UserLogin.count %>
+      <% role_count = Role.count %>
+      <% if registered == 0 && role_count == 0 %>
+        <p>registered = <%= registered %></p>
+        <% Role.create(:name => "Administrator", :description => "Person who administers the entire System") %>
+        <% Role.create(:name => "Supervisor", :description => "Person who oversees the department assigned") %>
+        <% User.create(:username => "Admin", :password => "@dm1n", :role_id => 1) %>
+        <% Department.create(:name => "Human Resource Unit") %>
+        <% Department.create(:name => "Administrative Unit") %>
+        <% Department.create(:name => "Finance Unit") %>
+        <% Department.create(:name => "Technical Unit") %>
+        <% controller.redirect_to "http://localhost:3000/login" %>
+      <% end %>
 
 <%= form_tag sessions_path do %>
   <center>
+  <br /><br /><br />
   <div id="loginbox">
-  <br />
-  <h1>[Insert Logo Here]</h1>
+  <%= image_tag "deped-logo.png", :style => "padding-top:10px" %>
   <h1>Log In</h1>
   <div class="field">
     
@@ -22,8 +26,7 @@
     
     <%= password_field_tag :password, params[:password], :placeholder => "Password", :size => "32" %>
   </div><br />
-  <div class="actions"><%= submit_tag "Log In" %></div>
-  <br />
+  <div class="actions"><%= submit_tag "Log In", class: 'btn btn-primary' %></div>
   <p>For Forgotten Password, Please Contact Your Administrator.</p> 
   </div></center>
 <% end %>

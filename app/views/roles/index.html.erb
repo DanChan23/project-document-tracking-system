@@ -2,7 +2,7 @@
 
 <h1>Roles</h1>
 
-<table>
+<table class = "table-hover table-bordered table-condensed table" style="width: 95%" >
   <thead>
     <tr>
       <th>Name</th>
@@ -16,9 +16,9 @@
       <tr>
         <td><%= role.name %></td>
         <td><%= role.description %></td>
-        <td><%= link_to 'Show', role %></td>
-        <td><%= link_to 'Edit', edit_role_path(role) %></td>
-        <td><%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', role, { class: 'btn btn-primary'} %></td>
+        <td><%= link_to 'Edit', edit_role_path(role), { class: 'btn btn-primary'} %></td>
+        <td><%= link_to 'Destroy', role,  class: 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

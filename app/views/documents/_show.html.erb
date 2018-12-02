@@ -20,12 +20,12 @@
 
     <div class="field">
       <%= form.label :subject %>
-      <%= form.text_field :subject %>
+      <%= form.text_field :subject, :readonly => "readonly" %>
     </div>
 
     <div class="field">
       <%= form.label :status %>
-      <%= form.text_field :status %>
+      <%= form.select :status, options_for_select(["Pending","Completed"],"Pending") %>
     </div>
 
     <div class="field">

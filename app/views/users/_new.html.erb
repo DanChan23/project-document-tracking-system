@@ -17,22 +17,6 @@
 		      </ul>
 		    </div>
 		  <% end %>
-		  
-
-		  <% registered = UserLogin.count %>
-		  <% role_count = Role.count %>
-		  <% if registered == 0 && role_count == 0 %>
-		    <p>registered = <%= registered %></p>
-		    <% Role.create(:name => "Administrator", :description => "Person who administers the entire System") %>
-		    <% Role.create(:name => "Supervisor", :description => "Person who oversees the department assigned") %>
-		    <% Department.create(:name => "Human Resource Unit") %>
-		    <% Department.create(:name => "Administrative Unit") %>
-		    <% Department.create(:name => "Finance Unit") %>
-		    <% Department.create(:name => "Technical Unit") %>
-
-
-		    <% controller.redirect_to "http://localhost:3000/login" %>
-		  <% end %>
 
 		<div class="row">
 		<div class="col-sm-6">

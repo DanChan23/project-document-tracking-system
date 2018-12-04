@@ -6,7 +6,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Users</h1>
-
+<center>
 <table class = "table-hover table-bordered table-condensed table" style="width: 95%">
   <thead>
     <tr>
@@ -14,11 +14,11 @@
       <th>Fname</th>
       <th>Lname</th>
       <th>Email</th>
-      <th>Password digest</th>
+      
       <th>Role</th>
       <th>Supervisor</th>
       <th>Department</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -29,18 +29,16 @@
         <td><%= user.fname %></td>
         <td><%= user.lname %></td>
         <td><%= user.email %></td>
-        <td><%= user.password_digest %></td>
+        
         <td><%= Role.where("id = ?", user.role_id).pluck(:name).first %></td>
         <td><%= User.where("id = ?", user.user_id).pluck(:fname).first.to_s + " " + User.where("id = ?", user.user_id).pluck(:lname).first.to_s %></td>
         <td><%= Department.where("id = ?", user.department_id).pluck(:name).first %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% link_to 'Show', user %>
+        <td><%= link_to 'Edit', edit_user_path(user), { class: 'btn btn-primary'} %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, class: 'btn btn-primary', data: { confirm: 'Are you sure to delete this data?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</center>
 <br>
-
-<%= link_to 'New User', new_user_path %>

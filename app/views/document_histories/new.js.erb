@@ -3,10 +3,17 @@ $("#modal-window-new-history").modal();
 
 
 $(function(){
+  $('#doc_his_btn_submit').attr('disabled', 'disabled');
   $("#document_history_document_id").change(function() {
 		console.log("document_history_document_id is changed!");
 		console.log("The value is: " + $("#document_history_document_id :selected").text());
 		aw = $("#document_history_document_id :selected").text();
-		$("#document_history_subject").val(aw)
+		$("#document_history_subject").val(aw);
+		if( aw != "Select document"){
+			$('#doc_his_btn_submit').removeAttr('disabled');
+		}
+		else {
+			$('#doc_his_btn_submit').attr('disabled', 'disabled');
+		}
 	});
 });

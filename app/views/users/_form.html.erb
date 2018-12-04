@@ -11,53 +11,89 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
-  </div>
+  <div class = "row">
+    <div style="padding-left: 30px">
+      <div class="field form-group">
+        <%= form.label :username %>
+      </div>
 
-  <div class="field">
-    <%= form.label :fname %>
-    <%= form.text_field :fname %>
-  </div>
+      <div class="field form-group">
+        <%= form.label :fname %>
+      </div>
 
-  <div class="field">
-    <%= form.label :lname %>
-    <%= form.text_field :lname %>
-  </div>
+      <div class="field form-group">
+        <%= form.label :lname %>
+      </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
+      <div class="field form-group">
+        <%= form.label :email %>
+      </div>
 
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </div>
+      <div class="field form-group">
+        <%= form.label :password %>
+      </div>
 
-  <div class="field">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
-  </div>
+      <div class="field form-group">
+        <%= form.label :password_confirmation %>
+      </div>
 
-  <div class="field">
-    <%= form.label "designation" %>
-    <%= form.collection_select(:role_id, Role.all, :id, :name, :prompt => 'Select Role') %>
-  </div>
+      <div class="field form-group">
+        <%= form.label "designation" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Supervisor') %>
-  </div>
+      <div class="field form-group">
+        <%= form.label :user_id %>
+      </div>
 
-  <div class="field">
-    <%= form.label :department_id %>
-    <%= form.collection_select(:department_id, Department.all, :id, :name, :prompt => 'Specify Department') %>
+      <div class="field form-group">
+        <%= form.label :department_id %>
+      </div>
+    </div>
+
+    <div style="padding-left: 20px">
+      <div class="field form-group">
+        <%= form.text_field :username %>
+      </div>
+
+      <div class="field form-group">
+        <%= form.text_field :fname %>
+      </div>
+
+      <div class="field form-group">
+        <%= form.text_field :lname %>
+      </div>
+
+      <div class="field form-group">
+        <%= form.text_field :email %>
+      </div>
+
+      <div class="field form-group">
+        <%= form.password_field :password %>
+      </div>
+
+      <div class="field form-group" style="padding-top: 5px">
+        <%= form.password_field :password_confirmation %>
+      </div>
+
+      <div class="field form-group" style="padding-top: 5px">
+        <%= form.collection_select(:role_id, Role.all, :id, :name, :prompt => 'Select Role') %>
+      </div>
+
+      <div class="field form-group" style="padding-top: 5px">
+        <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Supervisor') %>
+      </div>
+
+      <div class="field form-group" style="padding-top: 5px">
+        <%= form.collection_select(:department_id, Department.all, :id, :name, :prompt => 'Specify Department') %>
+      </div>
+    </div>
+
   </div>
 
   <div class="actions">
-    <%= form.submit :submit %>
+    <%= form.submit :submit , class: 'btn btn-primary' %>
+    <%= link_to 'Back', users_path, { class: 'btn btn-primary'} %>
   </div>
+
 
 <% end %>

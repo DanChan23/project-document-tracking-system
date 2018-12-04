@@ -11,9 +11,10 @@
 
   <body>
     <% role_id = User.where("id = ?", session[:user_id]).pluck(:role_id).first %>
+
     <div id="modal-window" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:600px;" ></div>
+        <div class="modal-content" style="width:700px;" ></div>
       </div>
     </div>
 

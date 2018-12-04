@@ -20,6 +20,16 @@ class DocumentsController < ApplicationController
       end
     end
 
+
+    #@document_histories = DocumentHistory.all.paginate(:page => params[:page], :per_page => 5)
+    @document_histories = if params[:get_doc_history_subj]
+      tmp = DocumentHistory.group("document_id").order('id DESC')
+      tmp2 = DocumentHistory.from("(#{tmp.to_sql}) as document_histories").select("document_histories.*").where("document_histories.received_by_office = ? AND document_histories.remarks = ?", dept_id, "Pending").paginate(:page => params[:page], :per_page => 5)
+      tmp2.where('subject LIKE ?', "%#{params[:get_doc_history_subj]}%")
+    else
+      tmp = DocumentHistory.group("document_id").order('id DESC')
+      DocumentHistory.from("(#{tmp.to_sql}) as document_histories").select("document_histories.*").where("document_histories.received_by_office = ? AND document_histories.remarks = ?", dept_id, "Pending").paginate(:page => params[:page], :per_page => 5) 
+    end
   end
 
   # GET /documents/1
@@ -46,7 +56,7 @@ class DocumentsController < ApplicationController
         puts "id is: " + @document.id.to_s
         puts "received_from_name is: " + @document.user_id.to_s
         puts "received_from_office is: " + @document.department_id.to_s
-        DocumentHistory.create(:document_id => @document.id, :received_by_name => @document.user_id, :received_by_office => @document.department_id, :subject => @document.subject, :remarks => @document.status)
+        DocumentHistory.create(:document_id => @document.id, :received_by_name => @document.user_id, :received_by_office => @document.department_id, :received_from_name => @document.user_id, :received_from_office => @document.department_id, :subject => @document.subject, :remarks => @document.status)
         format.html { redirect_to "http://localhost:3000/documents", notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
@@ -88,6 +98,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:subject, :status, :date_created, :time_created, :user_id, :department_id)
+      params.require(:document).permit(:subject, :status, :date_created, :time_created, :user_id, :department_id, :get_doc_history_subj)
     end
 end

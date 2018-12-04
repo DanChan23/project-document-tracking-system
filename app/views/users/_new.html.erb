@@ -17,55 +17,85 @@
 		      </ul>
 		    </div>
 		  <% end %>
+		  <div class = "row">
+			  <div style = "width: 100px; padding-left: 10px">
+				  <div class="field form-group">
+				    <%= form.label :username, :class => "control-label" %>
+				  </div>  
 
-		<div class="row">
-		<div class="col-sm-6">
-		  <div class="field form-group">
-		    <%= form.label :username, :class => "control-label" %>
-		    <%= form.text_field :username %>
-		  </div>
+				  <div class="field form-group">
+				    <%= form.label "First_Name" %>
+				  </div>		    
 
-		  <div class="field form-group">
-		    <%= form.label "First_Name" %>
-		    <%= form.text_field :fname %>
-		  </div>
+				  <div class="field form-group">
+				    <%= form.label "Last_Name" %>
+				  </div>
 
-		  <div class="field form-group">
-		    <%= form.label "Last_Name" %>
-		    <%= form.text_field :lname %>
-		  </div>
+				  <div class="field form-group">
+				    <%= form.label :email %>
+				  </div>
+			  </div>
+					
+			  <div class ="col-md-2">
+				  <div class="field form-group">
+				    <%= form.text_field :username %>
+				  </div>  
 
-		  <div class="field form-group">
-		    <%= form.label :email %>
-		    <%= form.text_field :email %>
-		  </div>
-		</div>
-		<div class="col-sm-6">
-		  <div class="field form-group">
-		    <%= form.label :password %>
-		    <%= form.password_field :password, :id => "pass_id" %>
-		    <p id="prompter"></p>
+				  <div class="field form-group">
+				    <%= form.text_field :fname %>
+				  </div>		    
+
+				  <div class="field form-group">
+				    <%= form.text_field :lname %>
+				  </div>
+
+				  <div class="field form-group">
+				    <%= form.text_field :email %>
+				  </div>
+			  </div>
 		  
-		    <%= form.label "Re-enter" %>
-		    <%= form.password_field :password_confirmation, :placeholder => "Confirm Password", :id => "conf_pass_id" %>
-		  </div>
+		  
+			  <div style = "padding-left: 120px">
+				  <div class="field form-group">
+				    <%= form.label :password %>
+				    <p id="prompter"></p>
+				    <%= form.label "Re-enter" %>
+				  </div>  
 
-		  <div class="field form-group">
-		    <%= form.label "designation" %>
-		    <%= form.collection_select(:role_id, Role.all, :id, :name, :prompt => 'Select Role') %>
-		  </div>
+				  <div class="field form-group">
+				    <%= form.label "designation" %>
+				  </div>		    
 
-		  <div class="field form-group">
-		    <%= form.label :user_id %>
-		    <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Supervisor') %>
-		  </div>
+				  <div class="field form-group">
+				    <%= form.label "Supervisor" %>
+				  </div>
 
-		  <div class="field form-group">
-		    <%= form.label :department_id %>
-		    <%= form.collection_select(:department_id, Department.all, :id, :name, :prompt => 'Specify Department') %>
+				  <div class="field form-group">
+				    <%= form.label :department_id %>
+				  </div>
+			  </div>
+					
+			  <div class ="col-md-2">
+				  <div class="field form-group">
+				    <%= form.password_field :password, :id => "pass_id" %>
+				    <p></p>
+				    <%= form.password_field :password_confirmation, :placeholder => "Confirm Password", :id => "conf_pass_id" %>
+				  </div>  
+
+				  <div class="field form-group">
+				    <%= form.collection_select(:role_id, Role.all, :id, :name, :prompt => 'Select Role') %>
+				  </div>		    
+
+				  <div class="field form-group">
+				    <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Supervisor') %>
+				  </div>
+
+				  <div class="field form-group" style ="padding-top: 10px">
+				  	
+				    <%= form.collection_select(:department_id, Department.all, :id, :name, :prompt => 'Specify Department') %>
+				  </div>
+			  </div>
 		  </div>
-		</div>
-		</div>
 
 		  <div class="modal-footer">
 		    <%= form.submit "Add", :class => "btn btn-primary", :id => "signup_submit" %>

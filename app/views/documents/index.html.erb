@@ -3,7 +3,7 @@
 <h3>Documents</h3>
   <div style="float: right; padding-right: 40px">
   <%= form_tag(documents_path, method: :get) do %>
-    <%= text_field_tag :subject, params[:subject] %>
+    <%= text_field_tag :subject, params[:subject], :placeholder => "Search for a document" %>
     <%= submit_tag 'Search', name: nil %>
   <% end %>
   </div>
@@ -56,4 +56,76 @@
 </table>
 </center>
 <%= link_to 'New Document', new_document_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-docs', class: 'btn btn-primary'} %>
+<% link_to 'Forward Document', new_document_history_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-history', class: 'btn btn-primary'} %>
+
+
+<h3 style="padding-top: 10px">Documents On-Hand</h3>
+<div style="float: right; padding-right: 40px">
+  <%= form_tag(documents_path, method: :get) do %>
+    <%= text_field_tag :get_doc_history_subj, params[:get_doc_history_subj], :placeholder => "Find documents on-hand" %>
+    <%= submit_tag 'Search', name: nil %>
+  <% end %>
+  </div>
+<center>
+<table class = "table-hover table-bordered table-condensed table" style="width: 95%">
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Status</th>
+      <th>Requesting Office</th>
+      <th>Date & Time Received</th>
+      <th>Received by</th>
+      <th>Forwarding Office</th>
+      <th>Forwarded by</th>
+      <% if User.where("id = ?", session[:user_id]).pluck(:role_id).first == 1 %>
+      	<th colspan="2"></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <% department_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first %>
+  <tbody>
+    <% @document_histories.each do |document| %>
+      <tr>
+        <td><%= document.subject %></td>
+        <td><%= document.remarks %></td>
+        <td>
+        	<% u_id = Document.where("id = ?", document.document_id).pluck(:user_id).first %>
+        	<% d_id = User.where("id = ?", u_id).pluck(:department_id).first %>
+        	<%= Department.where("id = ?", d_id).pluck(:name).first %>
+        </td>
+        <td><%= document.created_at.strftime("%Y/%m/%d %I:%M %p") %></td>
+        <% if document.received_by_name != document.received_from_name %>
+	      <td><%= User.where("id = ?", document.received_by_name).pluck(:fname).first.to_s + " " + User.where("id = ?", document.received_by_name).pluck(:lname).first.to_s %></td>
+	      <td><%= Department.where("id = ?", document.received_from_office).pluck(:name).first %></td>
+	      <td><%= User.where("id = ?", document.received_from_name).pluck(:fname).first.to_s + " " + User.where("id = ?", document.received_from_name).pluck(:lname).first.to_s %></td>
+        <% else %>
+          <td>N/A</td>
+          <td>N/A</td>
+          <td>N/A</td>
+        <% end %>
+        <% if User.where("id = ?", session[:user_id]).pluck(:role_id).first == 1 %>
+	        <td><% link_to 'Show', document %>
+	          <%= link_to 'Edit', document,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-docs', class: 'btn btn-primary'}  %>
+	        </td>
+	        <% link_to 'Edit', edit_document_path(document) %>
+	        <td><%= link_to 'Destroy', document, :class => 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	    <% end %>
+      </tr>
+    <% end %>
+    <div>
+    <div class="digg_pagination">
+    <div class="page_info" style="width: 400px">
+      <%= page_entries_info @document_histories %>
+    </div>
+  </div>
+    <div class="flickr_pagination">
+        <%= will_paginate @document_histories, :container => false %>
+    </div>
+  </div>
+
+  </tbody>
+</table>
+</center>
+<% link_to 'New Document', new_document_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-docs', class: 'btn btn-primary'} %>
 <%= link_to 'Forward Document', new_document_history_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-history', class: 'btn btn-primary'} %>

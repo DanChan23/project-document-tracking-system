@@ -5,7 +5,7 @@ function checker() {
 	console.log("This is being called");
 	if ($('#conf_pass_id').val() != $('#pass_id').val()) {
 			console.log("Not Match!");
-			$('#prompter').html("Password should match!");
+			$('#prompter').html("Password not match!");
 			$('#signup_submit').attr('disabled', 'disabled');
 	}
 	else {

@@ -53,7 +53,7 @@ GEM
     bindex (0.5.0)
     bootsnap (1.3.0)
       msgpack (~> 1.0)
-    bootstrap (4.1.3)
+    bootstrap (4.1.1)
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
@@ -109,6 +109,9 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.2)
       mimemagic (~> 0.3.2)
+    material-sass (4.1.1)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.5.2)
     method_source (0.9.0)
     mimemagic (0.3.2)
     mini_mime (1.0.0)
@@ -210,7 +213,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
-  bootstrap
+  bootstrap (= 4.1.1)
   bootstrap-sass (~> 3.3.7)
   byebug
   capybara (>= 2.15, < 4.0)
@@ -219,6 +222,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3, >= 4.3.1)
   listen (>= 3.0.5, < 3.2)
+  material-sass (= 4.1.1)
   popper_js (~> 1.14.5)
   puma (~> 3.11)
   rails (~> 5.2.0)
@@ -237,4 +241,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.17.1

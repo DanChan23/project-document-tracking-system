@@ -16,4 +16,5 @@
 //= require activestorage
 //= require turbolinks
 //= require bootstrap
+//= require material
 //= require_tree .

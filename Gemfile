@@ -9,12 +9,15 @@ gem 'rails', '~> 5.2.0'
 gem 'sqlite3'
 # gem bootstrap and popperjs required for bootstrap
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
-gem 'bootstrap'
 gem 'popper_js', '~> 1.14.5'
 
 #for popup in rails
+gem 'bootstrap',     '4.1.1'
+gem 'material-sass', '4.1.1'
 gem 'bootstrap-sass', '~> 3.3.7'
 #gem 'sass-rails', '>= 3.2'
+#for material design
+gem 'material-sass', '4.1.1'
 
 #gem for pagination 11-28-18
 gem 'will_paginate'

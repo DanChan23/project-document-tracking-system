@@ -11,41 +11,4 @@
  * It is generally better to create a new file per style scope.
  *
  */
-@import 'bootstrap';
-
-
-body {
-	background-color: #4fc6d6;
-	/*background-image: url(/assets/deped-logo.png);
-	background-repeat: no-repeat;
-	background-position: 50% -40%;
-	background-size: 700px;
-	height: 500px;*/
-}
-
-#loginbox {
-	background-color: #dddddd;
-	border-radius: 25px;
-	width: 400px;
-	height: 500px;
-	color: gray;
-}
-
-a:link {
-    color: white;
-}
-
-/* visited link */
-a:visited {
-    color: white;
-}
-
-/* mouse over link */
-a:hover {
-    color: aqua;
-}
-
-/* selected link */
-a:active {
-    color: blue;
-}
+ @import "material";

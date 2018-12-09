@@ -42,16 +42,15 @@
       </div>
     </div>
 
-
-    <nav class="navbar navbar-inverse" style="background-color: grey">
-      <div class="container-fluid">
+    <nav class="navbar navbar-dark bg-dark">
         <div class="navbar-header">
-          <%= image_tag "deped-logo.png", :style => "height:70px; width:70px" %>
-          <a class="navbar-brand" href="http://localhost:3000/documents">Document Tracking System</a>
+          <%= image_tag "deped-logo.png", :style => "height:50px; width:50px" %>
           <% if session[:user_id] != nil && role_id == 1 %>
             <a class="navbar-brand" href="http://localhost:3000/users">Users</a>
             <a class="navbar-brand" href="http://localhost:3000/departments">Departments</a>
             <a class="navbar-brand" href="http://localhost:3000/roles">Roles</a>
+          <% else %>
+           <a class="navbar-brand" href="http://localhost:3000/documents">Document Tracking System</a>
           <% end %>
         </div>
       <div style="float: right;" class ="page-header">
@@ -61,12 +60,11 @@
       <% link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'}  %>
       <% if current_user %>
         <label style="color:white">Logged in as <%= current_user.username %>.  </label>
-        <%= link_to "Log Out", logout_path, { class: 'btn btn-primary'} %>
+        <%= link_to "Log Out", logout_path, { class: 'btn btn-outline-primary'} %>
       <% else %>
         <% link_to "Sign Up", signup_path %>
-        <%= link_to "Log In", login_path, { class: 'btn btn-primary'} %>
+        <%= link_to "Log In", login_path, { class: 'btn btn-outline-primary'} %>
       <% end %>
-      </div>
     </div>
     </nav>
     <%= yield %>

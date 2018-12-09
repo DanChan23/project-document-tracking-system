@@ -1,99 +1,69 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="row justify-content-center">
+  <div class="card" style="width: 20rem; margin:20px;">
+    <%= form_with(model: user, local: true) do |form| %>
+      <center>
+        <%= image_tag "deped-logo.png", :style => "padding-top:10px", :width => "100px" %>
+      </center>
+      <div class="card-body">
+        <h4 class="card-title">Register</h4>
+        <% if user.errors.any? %>
+            <% user.errors.full_messages.each do |message| %>
+              <p class="card-text"><%= message %><p>
+            <% end %>
+          </p>
+        <% end %>
 
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Username</label>
+          <%= form.text_field :username, :class=>"form-control" %>
+        </div>
 
-  <div class = "row">
-    <div style="padding-left: 30px">
-      <div class="field form-group">
-        <%= form.label :username %>
+        <div class="field form-group">
+          <label for="exampleInputEmail1">First Name</label>
+          <%= form.text_field :fname, :class=>"form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <label for="exampleInputEmail1">Last Name</label>
+          <%= form.text_field :lname, :class=>"form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <label for="exampleInputEmail1">Email</label>
+          <%= form.text_field :email, :class=>"form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <label for="exampleInputEmail1">Password</label>
+          <%= form.password_field :password, :class=>"form-control" %>
+        </div>
+
+        <div class="field form-group" style="padding-top: 5px">
+          <label for="exampleInputEmail1">Confirm Password</label>
+          <%= form.password_field :password_confirmation, :class=>"form-control" %>
+        </div>
+
+        <div class="field form-group" style="padding-top: 5px">
+          <label for="exampleInputEmail1">Designation</label>
+          <%= form.collection_select(:role_id, Role.all, :id, :name, {:prompt => 'Select Role'}, {class: 'form-control' }) %>
+        </div>
+
+        <div class="field form-group" style="padding-top: 5px">
+          <label for="exampleInputEmail1">Supervisor</label>
+          <%= form.collection_select(:user_id, User.all, :id, :fname, {:prompt => 'Specify Supervisor'}, {class: 'form-control' }) %>
+        </div>
+
+        <div class="field form-group" style="padding-top: 5px">
+          <label for="exampleInputEmail1">Department</label>
+          <%= form.collection_select(:department_id, Department.all, :id, :name, {:prompt => 'Specify Department'}, {class: 'form-control' }) %>
+        </div>
+
       </div>
 
-      <div class="field form-group">
-        <%= form.label :fname %>
+      <div class="card-actions">
+        <%= form.submit :submit , class: 'btn btn-outline-primary' %>
+        <%= link_to 'Back', users_path, { class: 'btn btn-outline-primary'} %>
       </div>
-
-      <div class="field form-group">
-        <%= form.label :lname %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :email %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :password %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :password_confirmation %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label "designation" %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :user_id %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.label :department_id %>
-      </div>
-    </div>
-
-    <div style="padding-left: 20px">
-      <div class="field form-group">
-        <%= form.text_field :username %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.text_field :fname %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.text_field :lname %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.text_field :email %>
-      </div>
-
-      <div class="field form-group">
-        <%= form.password_field :password %>
-      </div>
-
-      <div class="field form-group" style="padding-top: 5px">
-        <%= form.password_field :password_confirmation %>
-      </div>
-
-      <div class="field form-group" style="padding-top: 5px">
-        <%= form.collection_select(:role_id, Role.all, :id, :name, :prompt => 'Select Role') %>
-      </div>
-
-      <div class="field form-group" style="padding-top: 5px">
-        <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Supervisor') %>
-      </div>
-
-      <div class="field form-group" style="padding-top: 5px">
-        <%= form.collection_select(:department_id, Department.all, :id, :name, :prompt => 'Specify Department') %>
-      </div>
-    </div>
-
+    <% end %>  
   </div>
-
-  <div class="actions">
-    <%= form.submit :submit , class: 'btn btn-primary' %>
-    <%= link_to 'Back', users_path, { class: 'btn btn-primary'} %>
-  </div>
-
-
-<% end %>
+</div>

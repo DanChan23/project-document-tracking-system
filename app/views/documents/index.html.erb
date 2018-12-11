@@ -1,14 +1,18 @@
+<div class="container py-5" style="margin-bottom:20px; padding: 3rem 0;">
 <p id="notice"><%= notice %></p>
-
 <h3>Documents</h3>
-  <div style="float: right; padding-right: 40px">
+  <div style="float: right;">
   <%= form_tag(documents_path, method: :get) do %>
-    <%= text_field_tag :subject, params[:subject], :placeholder => "Search for a document" %>
-    <%= submit_tag 'Search', name: nil %>
+    <div class="input-group mb-3">
+    <%= text_field_tag :subject, params[:subject], :placeholder => "Search for a document", :class => "form-control" %>
+      <div class="input-group-append">
+        <%= submit_tag 'Search', name: nil, class:"btn btn-primary" %>
+      </div>
+    </div>
   <% end %>
   </div>
-<center>
-<table class = "table-hover table-bordered table-condensed table" style="width: 95%">
+<div class="table-responsive">
+<table class = "table-hover table-bordered table-condensed table">
   <thead>
     <tr>
       <th>Subject</th>
@@ -17,7 +21,6 @@
       <th>Time created</th>
       <th>Requested by</th>
       <th>Current Location</th>
-
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -34,40 +37,42 @@
         <td><% dh = DocumentHistory.where("document_id = ?", document.id).order('id DESC').pluck(:received_by_office).first %>
           <%= Department.where("id = ?", dh).pluck(:name).first %>
         </td>
-        <td><% link_to 'Show', document %>
-          <%= link_to 'Edit', document,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-docs', class: 'btn btn-primary'}  %>
+        <td>
+          <%= link_to 'Edit', document,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-docs'}  %>
         </td>
-        <% link_to 'Edit', edit_document_path(document) %>
-        <td><%= link_to 'Destroy', document, :class => 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %></td>
       </tr>
     <% end %>
 
   </tbody>
-  <div>
-    <div class="digg_pagination">
+  
+  <div class="digg_pagination">
     <div class="page_info">
-      <%= page_entries_info @documents %>
+    <%= page_entries_info @documents %>
     </div>
-  </div>
     <div class="flickr_pagination">
         <%= will_paginate @documents, :container => false %>
     </div>
   </div>
 </table>
-</center>
-<%= link_to 'New Document', new_document_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-docs', class: 'btn btn-primary'} %>
-<% link_to 'Forward Document', new_document_history_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-history', class: 'btn btn-primary'} %>
+</div>
+<%= link_to 'New Document', new_document_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-docs', class: 'btn btn-secondary'} %>
+<% link_to 'Forward Document', new_document_history_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-history', class: 'btn btn-secondary'} %>
 
-
-<h3 style="padding-top: 10px">Documents On-Hand</h3>
-<div style="float: right; padding-right: 40px">
+<h3 style="padding-top: 10px" class="mt-5">Documents On-Hand</h3>
+<div style="float: right;">
   <%= form_tag(documents_path, method: :get) do %>
-    <%= text_field_tag :get_doc_history_subj, params[:get_doc_history_subj], :placeholder => "Find documents on-hand" %>
-    <%= submit_tag 'Search', name: nil %>
+    <div class="input-group mb-3">
+      <%= text_field_tag :get_doc_history_subj, params[:get_doc_history_subj], :placeholder => "Find documents on-hand", :class =>"form-control" %>
+      <div class="input-group-append">
+        <%= submit_tag 'Search', name: nil, class:"btn btn-primary" %>
+      </div>
+    </div>
   <% end %>
-  </div>
-<center>
-<table class = "table-hover table-bordered table-condensed table" style="width: 95%">
+</div>
+
+<div class="table-responsive">
+<table class = "table-hover table-bordered table-condensed table">
   <thead>
     <tr>
       <th>Subject</th>
@@ -105,17 +110,16 @@
           <td>N/A</td>
         <% end %>
         <% if User.where("id = ?", session[:user_id]).pluck(:role_id).first == 1 %>
-	        <td><% link_to 'Show', document %>
-	          <%= link_to 'Edit', document,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-docs', class: 'btn btn-primary'}  %>
-	        </td>
-	        <% link_to 'Edit', edit_document_path(document) %>
-	        <td><%= link_to 'Destroy', document, :class => 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+	          <%= link_to 'Edit', document,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-docs'}  %>
+          </td>
+          <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %></td>
 	    <% end %>
       </tr>
     <% end %>
     <div>
     <div class="digg_pagination">
-    <div class="page_info" style="width: 400px">
+    <div class="page_info">
       <%= page_entries_info @document_histories %>
     </div>
   </div>
@@ -126,6 +130,7 @@
 
   </tbody>
 </table>
-</center>
-<% link_to 'New Document', new_document_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-docs', class: 'btn btn-primary'} %>
-<%= link_to 'Forward Document', new_document_history_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-history', class: 'btn btn-primary'} %>
+</div>
+<% link_to 'New Document', new_document_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-docs', class: 'btn btn-secondary'} %>
+<%= link_to 'Forward Document', new_document_history_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-new-history', class: 'btn btn-secondary'} %>
+</div>

@@ -18,60 +18,90 @@
       </div>
     <% end %>
     <% dept_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first %>
-    <div class="field">
-      <%= form.label :document_id %>
+
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label"><%= form.label :document_id %>
       <% tmp = DocumentHistory.group("document_id").order('id DESC') %>
       <% @dh = DocumentHistory.from("(#{tmp.to_sql}) as doc_his").select("doc_his.*").where("doc_his.received_by_office = ? AND doc_his.remarks = ?", dept_id, "Pending") %>
-
+</label>
+    <div class="col-sm-9">
       <% form.number_field :document_id %>
-      <%= form.collection_select(:document_id, @dh, :document_id, :subject, :prompt => 'Select document') %>
+      <%= form.collection_select(:document_id, @dh, :document_id, :subject, { :prompt => 'Select document'}, {:class => 'form-control'}) %>
+    </div>
     </div>
 
-    <div class="field">
-      <%= form.label "received_by:" %>
-      <%= form.collection_select(:received_by_name, User.all, :id, :fname_with_lname, :prompt => 'Specify Receiver') %>
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label"><%= form.label "received_by:" %>
+    </label>
+    <div class="col-sm-9">
+      <%= form.collection_select(:received_by_name, User.all, :id, :fname_with_lname, { :prompt => 'Specify Receiver'}, {:class => 'form-control'}) %>
+    </div>
     </div>
 
-    <div class="field">
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label">
       <%= form.label "received_by_office:" %>
-      <%= form.collection_select(:received_by_office, Department.all, :id, :name, :prompt => 'Specify Receiving Department') %>
+      </label>
+      <div class="col-sm-9">
+      <%= form.collection_select(:received_by_office, Department.all, :id, :name, { :prompt => 'Specify Receiving Department' }, {:class => 'form-control'}) %>
+    </div>
     </div>
 
-    <div class="field">
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label">
       <%= form.label "forwarded_by:" %>
+      </label>
+      <div class="col-sm-9">
       <%= form.hidden_field :received_from_name, :value => session[:user_id] %>
       <%= User.where("id = ?", session[:user_id]).pluck(:fname).first.to_s + " " + User.where("id = ?", session[:user_id]).pluck(:lname).first.to_s %>
     </div>
+    </div>
 
-    <div class="field">
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label">
       <%= form.label "received_from_office:" %>
+      </label>
+      <div class="col-sm-9">
       <% dept_id = User.where("id = ?", session[:user_id]).pluck(:department_id).first %>
       <%= form.hidden_field :received_from_office, :value => dept_id %>
       <%= Department.where("id = ?", dept_id).pluck(:name).first %>
     </div>
-
-    <div class="field">
-      <% form.label :length_of_stay %>
-      <% form.number_field :length_of_stay %>
     </div>
 
-    <div class="field">
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label">
+      <%= form.label :length_of_stay %>
+      </label>
+      <div class="col-sm-9">
+      <%= form.number_field :length_of_stay, {:class => 'form-control'} %>
+    </div>
+    </div>
+
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label">
       <%= form.label :remarks %>
-      <%= form.select :remarks, options_for_select(["Pending","Completed", "Cancelled"],"Pending") %>
+      </label>
+      <div class="col-sm-9">
+      <%= form.select :remarks, options_for_select(["Pending","Completed", "Cancelled"],"Pending"), {}, {:class => 'form-control'} %>
+    </div>
     </div>
 
-    <div class="field">
+    <div class="">
       <% form.label :subject %>
       <%= form.hidden_field :subject, :id => "document_history_subject", :readonly => "readonly" %>
     </div>
 
-    <div class="field">
-      <% form.label :max_stay %>
-      <% form.number_field :max_stay %>
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label">
+      <%= form.label :max_stay %>
+      </label>
+      <div class="col-sm-9">
+      <%= form.number_field :max_stay, {:class => 'form-control'} %>
+    </div>
     </div>
 
     <div class="modal-footer">
-      <%= form.submit "Forward Document", :class => 'btn btn-primary', :id => 'doc_his_btn_submit' %>
+      <%= form.submit "Forward Document", :class => 'btn btn-secondary', :id => 'doc_his_btn_submit' %>
     </div>
   <% end %>
 </div>

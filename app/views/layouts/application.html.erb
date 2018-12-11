@@ -13,31 +13,31 @@
     <% role_id = User.where("id = ?", session[:user_id]).pluck(:role_id).first %>
 
     <div id="modal-window" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content" style="width:700px;" ></div>
       </div>
     </div>
 
     <div id="modal-window-show-dept" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:500px;" ></div>
       </div>
     </div>
 
     <div id="modal-window-show-docs" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:600px;" ></div>
       </div>
     </div>
 
     <div id="modal-window-new-docs" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:600px;" ></div>
       </div>
     </div>
 
     <div id="modal-window-new-history" class="modal hide fade form-horizontal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:600px;" ></div>
       </div>
     </div>
@@ -45,19 +45,18 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="navbar-header">
           <%= image_tag "deped-logo.png", :style => "height:50px; width:50px" %>
-          <% if session[:user_id] != nil && role_id == 1 %>
+          <a class="navbar-brand" href="http://localhost:3000/documents">Document Tracking System</a>
+          <% if session[:user_id] != nil && role_id == 1 %>      
             <a class="navbar-brand" href="http://localhost:3000/users">Users</a>
             <a class="navbar-brand" href="http://localhost:3000/departments">Departments</a>
             <a class="navbar-brand" href="http://localhost:3000/roles">Roles</a>
-          <% else %>
-           <a class="navbar-brand" href="http://localhost:3000/documents">Document Tracking System</a>
           <% end %>
         </div>
       <div style="float: right;" class ="page-header">
       <% if role_id == 1 %>
-        <%= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'}  %>
+        <%= link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-outline-primary'}  %>
       <% end %>
-      <% link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'}  %>
+      <% link_to 'Add user', new_user_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-outline-primary'}  %>
       <% if current_user %>
         <label style="color:white">Logged in as <%= current_user.username %>.  </label>
         <%= link_to "Log Out", logout_path, { class: 'btn btn-outline-primary'} %>

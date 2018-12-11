@@ -1,13 +1,13 @@
+<div class="container" style="margin-bottom:20px; padding: 3rem 0;">
 <p id="notice"><%= notice %></p>
-
 <h1>Departments</h1>
-
-<center><table class = "table-hover table-bordered table-condensed table table-striped" style="width:90%">
+<div class="table-responsive">
+<table class = "table-hover table-bordered table-condensed table table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th>Head of Department</th>
-      <th colspan="2">Action</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -17,16 +17,16 @@
         <td><%= department.name %></td>
         <td><%= User.where("id = ?", department.user_id).pluck(:fname).first.to_s + " " + User.where("id = ?", department.user_id).pluck(:lname).first.to_s %></td>
         <td><% link_to 'Show', department %>
-          <%= link_to 'Edit', department,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-dept', class: 'btn btn-primary'}  %>
+          <%= link_to 'Edit', department,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-show-dept'}  %>
         </td>
-
+        <td>
         <% link_to 'Edit', edit_department_path(department) %>
-        <td><%= link_to 'Remove', department, :class => 'btn btn-primary', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%= link_to 'Remove', department, class: 'text-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-</center>
-<br>
-
-<%= link_to 'New Department', new_department_path %>
+</div>
+<%= link_to 'New Department', new_department_path, class: 'btn btn-secondary' %>
+</div>

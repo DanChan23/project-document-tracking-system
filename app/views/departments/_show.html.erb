@@ -18,18 +18,22 @@
       </div>
     <% end %>
 
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label"><%= form.label :name %></label>
+    <div class="col-sm-9">
+      <%= form.text_field :name, { :class => 'form-control' } %>
+    </div>
     </div>
 
-    <div class="field form-group">
-      <%= form.label :user_id %>
-      <%= form.collection_select(:user_id, User.all, :id, :fname, :prompt => 'Specify Head of Department') %>
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label"><%= form.label :user_id %></label>
+    <div class="col-sm-9">
+      <%= form.collection_select(:user_id, User.all, :id, :fname, { :prompt => 'Specify Head of Department' }, {class: 'form-control' }) %>
+    </div>
     </div>
 
     <div class="modal-footer">
-      <%= form.submit :class => 'btn btn-primary' %>
+      <%= form.submit :class => 'btn btn-secondary' %>
     </div>
   <% end %>
 </div>

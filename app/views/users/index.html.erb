@@ -1,20 +1,18 @@
+<div class="container" style="margin-bottom:20px; padding: 3rem 0;">
 <% if session[:user_id] == nil %>
   <% controller.flash.now.alert = "Please log in first!" %>
   <% controller.redirect_to "http://localhost:3000/login", alert: "Please log in first!" %>
 <% end %>
-
 <p id="notice"><%= notice %></p>
-
 <h1>Users</h1>
-<center>
-<table class = "table-hover table-bordered table-condensed table" style="width: 95%">
+<div class="table-responsive">
+<table class = "table-hover table-bordered table-condensed table">
   <thead>
     <tr>
       <th>Username</th>
       <th>Fname</th>
       <th>Lname</th>
       <th>Email</th>
-      
       <th>Role</th>
       <th>Supervisor</th>
       <th>Department</th>
@@ -34,11 +32,11 @@
         <td><%= User.where("id = ?", user.user_id).pluck(:fname).first.to_s + " " + User.where("id = ?", user.user_id).pluck(:lname).first.to_s %></td>
         <td><%= Department.where("id = ?", user.department_id).pluck(:name).first %></td>
         <% link_to 'Show', user %>
-        <td><%= link_to 'Edit', edit_user_path(user), { class: 'btn btn-primary'} %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, class: 'btn btn-primary', data: { confirm: 'Are you sure to delete this data?' } %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, class: 'text-danger', data: { confirm: 'Are you sure to delete this data?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-</center>
-<br>
+</div>
+</div>

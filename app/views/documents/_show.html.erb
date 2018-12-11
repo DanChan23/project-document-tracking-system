@@ -18,28 +18,36 @@
       </div>
     <% end %>
 
-    <div class="field">
-      <%= form.label :subject %>
-      <%= form.text_field :subject, :readonly => "readonly" %>
+    <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Subject</label>
+    <div class="col-sm-9">
+    <%= form.text_field :subject, :readonly => "readonly", :class => "form-control" %>
     </div>
+  </div>
 
-    <div class="field">
-      <%= form.label :status %>
-      <%= form.select :status, options_for_select(["Pending","Completed"],"Pending") %>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Status</label>
+    <div class="col-sm-9">
+    <%= form.select :status, options_for_select(["Pending","Completed"],"Pending"), {}, { :class => 'form-control' } %>
     </div>
+  </div>
 
-    <div class="field">
-      <%= form.label :date_created %>
-      <%= form.date_select :date_created %>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Date Created</label>
+    <div class="col-sm-9">
+    <%= form.date_select :date_created, {}, { :class => ' col-sm-3' } %>
     </div>
+  </div>
 
-    <div class="field">
-      <%= form.label :time_created %>
-      <%= form.time_select :time_created %>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Time Created</label>
+    <div class="col-sm-9">
+    <%= form.time_select :time_created, {}, { :class => ' col-sm-3' } %>
     </div>
+  </div>
 
-      <div class="modal-footer">
-        <%= form.submit :class => 'btn btn-primary' %>
-      </div>
+  <div class="modal-footer">
+        <%= form.submit :class => 'btn btn-secondary' %>
+    </div>
   <% end %>
 </div>

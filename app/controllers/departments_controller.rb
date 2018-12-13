@@ -7,7 +7,9 @@ class DepartmentsController < ApplicationController
     department_id = params[:department_id]
     # do something with some_parameter and return the results
 
-    @dept_head=Department.where("id = ?", department_id).pluck(:name).first
+    @aw=Department.where("id = ?", department_id).pluck(:user_id).first
+    @dept_head = User.where("id = ?", @aw).pluck(:fname).first.to_s + " " + User.where("id = ?", @aw).pluck(:lname).first.to_s
+
     puts "department head is: " + @dept_head
     respond_to do |format|
       format.json { render :json => @dept_head.to_json, :include => :status }

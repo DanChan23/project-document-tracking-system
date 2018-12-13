@@ -1,3 +1,9 @@
+<% if User.where("id = ?", session[:user_id]).pluck(:role_id).first != 1 %>
+  <% controller.redirect_to 'http://localhost:3000/documents' %>
+<% end %>
+
+<div class="row justify-content-center">
+  <div class="col-12">
 <%= form_with(model: document_history, local: true) do |form| %>
   <% if document_history.errors.any? %>
     <div id="error_explanation">
@@ -11,47 +17,49 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :document_id %>
-    <%= form.number_field :document_id %>
+    <%= form.number_field :document_id, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :received_by_name %>
-    <%= form.number_field :received_by_name %>
+    <%= form.number_field :received_by_name, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :received_by_office %>
-    <%= form.number_field :received_by_office %>
+    <%= form.number_field :received_by_office, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :received_from_name %>
-    <%= form.number_field :received_from_name %>
+    <%= form.number_field :received_from_name, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :received_from_office %>
-    <%= form.number_field :received_from_office %>
+    <%= form.number_field :received_from_office, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :length_of_stay %>
-    <%= form.number_field :length_of_stay %>
+    <%= form.number_field :length_of_stay, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :remarks %>
-    <%= form.text_field :remarks %>
+    <%= form.text_field :remarks, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :max_stay %>
-    <%= form.number_field :max_stay %>
+    <%= form.number_field :max_stay, :class=>"form-control" %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+</div>
+</div>

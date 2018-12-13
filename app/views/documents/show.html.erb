@@ -1,3 +1,7 @@
+<% if User.where("id = ?", session[:user_id]).pluck(:role_id).first != 1 %>
+  <% controller.redirect_to 'http://localhost:3000/documents' %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <p>

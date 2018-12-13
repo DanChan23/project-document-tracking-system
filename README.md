@@ -5,21 +5,21 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version - 2.5.1
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
+* Database initialization 
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+The program needs the gems included in the gemfile
+in order to install the gems needed, run "bundle install".
 
-* Deployment instructions
+Wait until the installation finishes.
 
-* ...
+After the installation, run "rake db:migrate".
+
+Lastly, run "rails s" to start the rails server.
+
+Don't forget to close the server by pressing "Ctrl + C"
+
 # project-document-tracking-system

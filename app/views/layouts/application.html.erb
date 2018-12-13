@@ -45,11 +45,11 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="navbar-header">
           <%= image_tag "deped-logo.png", :style => "height:50px; width:50px" %>
-          <a class="navbar-brand" href="http://localhost:3000/documents">Document Tracking System</a>
-          <% if session[:user_id] != nil && role_id == 1 %>      
-            <a class="navbar-brand" href="http://localhost:3000/users">Users</a>
-            <a class="navbar-brand" href="http://localhost:3000/departments">Departments</a>
-            <a class="navbar-brand" href="http://localhost:3000/roles">Roles</a>
+          <a class="navbar-brand" href="/documents">Document Tracking System</a>
+          <% if session[:user_id] != nil && role_id == 1 %>
+            <a class="navbar-brand" href="/users">Users</a>
+            <a class="navbar-brand" href="/departments">Departments</a>
+            <a class="navbar-brand" href="/roles">Roles</a>
           <% end %>
         </div>
       <div style="float: right;" class ="page-header">

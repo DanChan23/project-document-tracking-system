@@ -31,7 +31,12 @@ class UsersController < ApplicationController
       if @user.save
         #session[:user_id] = @user.id
         #format.html { redirect_back(fallback_location: root_path), notice: 'Thank you for signing up!' }
-        format.html { redirect_to "http://localhost:3000/documents", notice: 'successfully registered!' }
+        user = User.find(@user.id)
+        dept_head = Department.where("id = ?", @user.department_id).pluck(:user_id).first
+        if dept_head != ""
+          user.update_column(:user_id, dept_head)
+        end
+        format.html { redirect_to users_url, notice: 'successfully registered!' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -45,7 +50,12 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to "http://localhost:3000/users", notice: 'User was successfully updated.' }
+        user = User.find(@user.id)
+        dept_head = Department.where("id = ?", @user.department_id).pluck(:user_id).first
+        if dept_head != ""
+          user.update_column(:user_id, dept_head)
+        end
+        format.html { redirect_to users_url, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }

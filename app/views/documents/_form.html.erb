@@ -1,3 +1,7 @@
+<% if User.where("id = ?", session[:user_id]).pluck(:role_id).first != 1 %>
+  <% controller.redirect_to 'http://localhost:3000/documents' %>
+<% end %>
+
 <%= form_with(model: document, local: true) do |form| %>
   <% if document.errors.any? %>
     <div id="error_explanation">

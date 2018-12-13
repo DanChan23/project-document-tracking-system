@@ -46,6 +46,10 @@ class DocumentsController < ApplicationController
   def edit
   end
 
+  def viewer
+    @document = DocumentHistory.where("document_id = ?", params[:id])
+  end
+
   # POST /documents
   # POST /documents.json
   def create
@@ -57,7 +61,7 @@ class DocumentsController < ApplicationController
         puts "received_from_name is: " + @document.user_id.to_s
         puts "received_from_office is: " + @document.department_id.to_s
         DocumentHistory.create(:document_id => @document.id, :received_by_name => @document.user_id, :received_by_office => @document.department_id, :received_from_name => @document.user_id, :received_from_office => @document.department_id, :subject => @document.subject, :remarks => @document.status)
-        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document was successfully created.' }
+        format.html { redirect_to documents_url, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
         format.html { render :new }
@@ -71,7 +75,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document was successfully updated.' }
+        format.html { redirect_to documents_url, notice: 'Document was successfully updated.' }
         format.json { render :show, status: :ok, location: @document }
       else
         format.html { render :edit }

@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Document Histories</h1>
+
+<center>
+<div class="table-responsive">
+<table class = "table-hover table-bordered table-condensed table" style="width: 85%">
+  <thead>
+    <tr>
+      <th>Document ID</th>
+      <th>Subject</th>
+      <th>Received by</th>
+      <th>Receiving Office</th>
+      <th>Received from</th>
+      <th>Forwarding Office</th>
+      <th>Date received</th>
+      <!-- <th>Length of stay</th> -->
+      <th>Remarks</th>
+      <!-- <th>Max stay</th> -->
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @document.each do |document_history| %>
+      <tr>
+        <td><%= document_history.document_id %></td>
+        <td><%= document_history.subject %></td>
+        <td><%= User.where("id = ?", document_history.received_by_name).pluck(:fname).first.to_s + " " + User.where("id = ?", document_history.received_by_name).pluck(:lname).first.to_s %></td>
+        <td>
+          <%= Department.where("id = ?", document_history.received_by_office).pluck(:name).first %></td>
+        <td><%= User.where("id = ?", document_history.received_from_name).pluck(:fname).first.to_s + " " + User.where("id = ?", document_history.received_from_name).pluck(:lname).first.to_s %></td>
+        <td><%= Department.where("id = ?", document_history.received_from_office).pluck(:name).first %></td>
+        <td><%= document_history.created_at.strftime("%Y/%m/%d %I:%M %p") %></td>
+        <!-- <td><%= document_history.length_of_stay %></td> -->
+        <td><%= document_history.remarks %></td>
+        <!-- <td><%= document_history.max_stay %></td> -->
+        <% link_to 'Show', document_history %>
+        <td><%= link_to 'Edit', edit_document_history_path(document_history) %></td>
+        <td><%= link_to 'Destroy', document_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</center>
+
+<%= link_to 'Back', documents_path, :class => 'btn btn-primary' %>

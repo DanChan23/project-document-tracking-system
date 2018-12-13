@@ -1,3 +1,7 @@
+<% if User.where("id = ?", session[:user_id]).pluck(:role_id).first != 1 %>
+  <% controller.redirect_to documents_url %>
+<% end %>
+
 <div class="container" style="margin-bottom:20px; padding: 3rem 0;">
 <% if session[:user_id] == nil %>
   <% controller.flash.now.alert = "Please log in first!" %>

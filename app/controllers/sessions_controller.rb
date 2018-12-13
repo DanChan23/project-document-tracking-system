@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def index
-    redirect_to "http://localhost:3000/login"
+    redirect_to login_url
   end
 
   def create
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     	session[:user_id] = user.id
       @date = DateTime.current
       UserLogin.create(:timestamp => @date, :user_id => session[:user_id])
-    	redirect_to "http://localhost:3000/documents", notice: "Logged in on #{@date}"
+    	redirect_to documents_url, notice: "Logged in on #{@date}"
   	else
     	#flash.now.alert = "Email or password is invalid"
       #redirect_to "http://localhost:3000/login", alert: "Username or password is invalid!"
@@ -23,6 +23,6 @@ class SessionsController < ApplicationController
 
   def destroy
   	session[:user_id] = nil
-  	redirect_to "http://localhost:3000/login", notice: "Logged out!"
+  	redirect_to login_url, notice: "Logged out!"
   end
 end

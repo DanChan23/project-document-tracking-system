@@ -4,7 +4,7 @@
         <p>registered = <%= registered %></p>
         <% Role.create(:name => "Administrator", :description => "Person who administers the entire System") %>
         <% Role.create(:name => "Supervisor", :description => "Person who oversees the department assigned") %>
-        <% User.create(:username => "Admin", :password => "@dm1n", :role_id => 1) %>
+        <% User.create(:username => "Administrator", :password => "@dm1n1str@tor",:fname => "Admin", :lname => "Admin", :role_id => 1) %>
         <% Department.create(:name => "Human Resource Unit") %>
         <% Department.create(:name => "Administrative Unit") %>
         <% Department.create(:name => "Finance Unit") %>

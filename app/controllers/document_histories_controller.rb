@@ -31,7 +31,7 @@ class DocumentHistoriesController < ApplicationController
       if @document_history.save
         docs = Document.find(@document_history.document_id)
         docs.update_column(:status, @document_history.remarks)
-        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document history was successfully created.' }
+        format.html { redirect_to documents_url, notice: 'Document history was successfully created.' }
         format.json { render :show, status: :created, location: @document_history }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class DocumentHistoriesController < ApplicationController
   def update
     respond_to do |format|
       if @document_history.update(document_history_params)
-        format.html { redirect_to "http://localhost:3000/documents", notice: 'Document history was successfully updated.' }
+        format.html { redirect_to documents_url, notice: 'Document history was successfully updated.' }
         format.json { render :show, status: :ok, location: @document_history }
       else
         format.html { render :edit }

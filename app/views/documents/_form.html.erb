@@ -1,6 +1,4 @@
-<% if User.where("id = ?", session[:user_id]).pluck(:role_id).first != 1 %>
-  <% controller.redirect_to 'http://localhost:3000/documents' %>
-<% end %>
+<div class="container py-5">
 
 <%= form_with(model: document, local: true) do |form| %>
   <% if document.errors.any? %>
@@ -13,28 +11,32 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+<div class="row justify-content-center">
+  <div class="col-12">
+  <div class="form-group">
     <%= form.label :subject %>
-    <%= form.text_field :subject, :readonly => "readonly" %>
+    <%= form.text_field :subject, :readonly => "readonly", :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :status %>
-    <%= form.text_field :status %>
+    <%= form.text_field :status, :class=>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :date_created %>
-    <%= form.date_select :date_created %>
+    <%= form.date_select :date_created, :class=>"form-control col-sm-3" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :time_created %>
-    <%= form.time_select :time_created %>
+    <%= form.time_select :time_created, :class=>"form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
+</div>
+</div>
 <% end %>
+</div>

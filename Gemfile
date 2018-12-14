@@ -18,7 +18,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 #gem 'sass-rails', '>= 3.2'
 #for material design
 gem 'material-sass', '4.1.1'
-
+gem 'custom_error_message', '~> 1.1', '>= 1.1.1'
 #gem for pagination 11-28-18
 gem 'will_paginate'
 
